@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk";
+    --font-body: "Figtree";
+    --font-mono: "JetBrains Mono";
+    --radius: 0.625rem;
+
+    --background: 0.99 0 0;
+    --foreground: 0.11 0.02 280;
+    --card: 0.98 0 0;
+    --card-foreground: 0.11 0.02 280;
+    --popover: 0.98 0 0;
+    --popover-foreground: 0.11 0.02 280;
+
+    --primary: 0.54 0.22 265;
+    --primary-foreground: 0.99 0 0;
+
+    --secondary: 0.62 0.21 285;
+    --secondary-foreground: 0.99 0 0;
+    --muted: 0.92 0 0;
+    --muted-foreground: 0.5 0 0;
+
+    --accent: 0.72 0.22 204;
+    --accent-foreground: 0.11 0.02 280;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.99 0 0;
+
+    --border: 0.92 0 0;
+    --input: 0.92 0 0;
+    --ring: 0.54 0.22 265;
+
+    --chart-1: 0.72 0.22 204;
+    --chart-2: 0.62 0.21 285;
+    --chart-3: 0.54 0.22 265;
+    --chart-4: 0.65 0.18 142;
+    --chart-5: 0.58 0.19 155;
+
+    --sidebar: 0.98 0 0;
+    --sidebar-foreground: 0.11 0.02 280;
+    --sidebar-primary: 0.54 0.22 265;
+    --sidebar-primary-foreground: 0.99 0 0;
+    --sidebar-accent: 0.72 0.22 204;
+    --sidebar-accent-foreground: 0.11 0.02 280;
+    --sidebar-border: 0.92 0 0;
+    --sidebar-ring: 0.54 0.22 265;
+  }
+
+  .dark {
+    --background: 0.14 0.02 265;
+    --foreground: 0.98 0 0;
+    --card: 0.18 0.03 265;
+    --card-foreground: 0.98 0 0;
+    --popover: 0.22 0.04 265;
+    --popover-foreground: 0.98 0 0;
+
+    --primary: 0.72 0.21 265;
+    --primary-foreground: 0.14 0.02 265;
+
+    --secondary: 0.68 0.19 285;
+    --secondary-foreground: 0.99 0 0;
+    --muted: 0.28 0.03 265;
+    --muted-foreground: 0.65 0 0;
+
+    --accent: 0.74 0.21 204;
+    --accent-foreground: 0.14 0.02 265;
+
+    --destructive: 0.65 0.19 22;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.26 0.04 265;
+    --input: 0.26 0.04 265;
+    --ring: 0.72 0.21 265;
+
+    --chart-1: 0.74 0.21 204;
+    --chart-2: 0.68 0.19 285;
+    --chart-3: 0.72 0.21 265;
+    --chart-4: 0.65 0.18 142;
+    --chart-5: 0.58 0.19 155;
+
+    --sidebar: 0.18 0.03 265;
+    --sidebar-foreground: 0.98 0 0;
+    --sidebar-primary: 0.72 0.21 265;
+    --sidebar-primary-foreground: 0.14 0.02 265;
+    --sidebar-accent: 0.74 0.21 204;
+    --sidebar-accent-foreground: 0.99 0 0;
+    --sidebar-border: 0.26 0.04 265;
+    --sidebar-ring: 0.72 0.21 265;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+@layer utilities {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+  }
+
+  .glass-card-hover {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glass-card-hover:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .gradient-primary {
+    background: linear-gradient(
+      135deg,
+      oklch(var(--primary)),
+      oklch(var(--secondary))
+    );
+  }
+
+  .gradient-accent {
+    background: linear-gradient(
+      135deg,
+      oklch(var(--accent)),
+      oklch(var(--accent) / 0.7)
+    );
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold transition-smooth hover:bg-primary/90 active:scale-95 shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-secondary text-secondary-foreground rounded-xl font-semibold transition-smooth hover:bg-secondary/90 active:scale-95 shadow-lg;
+  }
+
+  .btn-accent {
+    @apply px-6 py-3 bg-accent text-accent-foreground rounded-xl font-semibold transition-smooth hover:bg-accent/90 active:scale-95 shadow-lg;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .badge-verified {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/30;
+  }
+
+  .badge-trending {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 bg-accent/20 text-accent text-xs font-semibold rounded-full border border-accent/30;
+  }
+}

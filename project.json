@@ -1,0 +1,29 @@
+{
+  "overview": "QuickGig is a premium AI-powered gig marketplace that instantly connects students, freelancers, and part-time workers with local businesses needing urgent temporary help — from 1-hour shifts to full-day gigs.",
+  "features": [
+    "Premium landing page with glassmorphic design and smooth animations",
+    "Dual signup for Workers and Employers with role-based dashboards",
+    "Worker profiles with skills, hourly rate, availability, and ratings",
+    "Employer profiles with logo, business info, and job management",
+    "Job posting with urgent flag, location, pay, duration, and skill requirements",
+    "Job discovery with search, filters, distance, and urgent badges",
+    "Job application workflow with accept/reject and status tracking",
+    "Ratings and reviews after job completion",
+    "Stripe payment integration for job completion",
+    "Mobile-first responsive design with #6C63FF / #8B5CF6 / #00C2FF palette"
+  ],
+  "category": "productivity",
+  "tags": [
+    "gig-economy",
+    "marketplace",
+    "jobs",
+    "freelance",
+    "workers",
+    "employers",
+    "mobile-first",
+    "glassmorphism",
+    "stripe",
+    "react"
+  ],
+  "last_updated": "2026-05-10T18:43:14.766Z"
+}

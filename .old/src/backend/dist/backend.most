@@ -1,0 +1,147 @@
+// Version: 1.0.0
+type ApplicationStatus__511886962 =
+  {#accepted; #completed; #pending; #rejected};
+type Application__578997397 =
+  {
+    appliedAt : Timestamp__301639476;
+    id : Text;
+    jobId : Text;
+    status : ApplicationStatus__511886962;
+    workerPrincipal : UserId__158757552
+  };
+type Data__159895909<T> = {var count : Nat__490723111; elements : [var ?T]};
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type EmployerProfile__134796480 =
+  {
+    activeJobCount : Nat;
+    businessName : Text;
+    completedHires : Nat;
+    description : Text;
+    logoUrl : ?Text;
+    principal : UserId__158757552;
+    ratings : [Rating__358913594]
+  };
+type Int__270357528 = Int__616954475;
+type Int__616954475 = Int;
+type Internal__667636161<T> =
+  {children : [var ?Node__92254746<T>]; data : Data__159895909<T>};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type JobStatus__357834694 = {#closed; #completed; #open};
+type Job__848768964 =
+  {
+    applicationCount : Nat;
+    category : Text;
+    createdAt : Timestamp__301639476;
+    description : Text;
+    duration : Text;
+    employerPrincipal : UserId__158757552;
+    id : Text;
+    location : Text;
+    payAmount : Nat;
+    skillsRequired : [Text];
+    status : JobStatus__357834694;
+    timing : Text;
+    title : Text;
+    urgent : Bool;
+    workerCount : Nat
+  };
+type Leaf__520550824<T> = {data : Data__159895909<T>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type Node__92254746<T> =
+  {#internal : Internal__667636161<T>; #leaf : Leaf__520550824<T>};
+type PaymentSession__618580392 =
+  {
+    amount : Nat;
+    createdAt : Timestamp__301639476;
+    employerPrincipal : UserId__158757552;
+    jobId : Text;
+    sessionId : Text;
+    status : PaymentStatus__1050999476
+  };
+type PaymentStatus__1050999476 = {#completed; #pending};
+type Rating__358913594 =
+  {
+    comment : ?Text;
+    createdAt : Timestamp__301639476;
+    fromPrincipal : UserId__158757552;
+    stars : Nat
+  };
+type Time__796480547 = Int__270357528;
+type Time__900049286 = Time__796480547;
+type Timestamp__301639476 = Time__900049286;
+type UserId__158757552 = Principal;
+type WorkerProfile__678030224 =
+  {
+    availability : Bool;
+    avatarUrl : ?Text;
+    bio : Text;
+    completedJobs : Nat;
+    displayName : Text;
+    hourlyRate : Nat;
+    principal : UserId__158757552;
+    ratings : [Rating__358913594];
+    skills : [Text];
+    totalEarnings : Nat
+  };
+actor {
+  stable admins :
+    {var root : Node__92254746<UserId__158757552>; var size : Nat__490723111};
+  stable applications :
+    {
+      var root : Node__46230540<Text, Application__578997397>;
+      var size : Nat__490723111
+    };
+  stable counter : {var nextAppId : Nat; var nextJobId : Nat};
+  stable employerProfiles :
+    {
+      var root : Node__46230540<UserId__158757552, EmployerProfile__134796480>;
+      var size : Nat__490723111
+    };
+  stable jobs :
+    {
+      var root : Node__46230540<Text, Job__848768964>;
+      var size : Nat__490723111
+    };
+  stable jobsState :
+    {
+      applications : Map__605269027<Text, Application__578997397>;
+      counter : {var nextAppId : Nat; var nextJobId : Nat};
+      jobs : Map__605269027<Text, Job__848768964>
+    };
+  stable jobsUsersState :
+    {
+      employerProfiles :
+        Map__605269027<UserId__158757552, EmployerProfile__134796480>;
+      workerProfiles :
+        Map__605269027<UserId__158757552, WorkerProfile__678030224>
+    };
+  stable paymentSessions :
+    {
+      var root : Node__46230540<Text, PaymentSession__618580392>;
+      var size : Nat__490723111
+    };
+  stable paymentsState :
+    {paymentSessions : Map__605269027<Text, PaymentSession__618580392>};
+  stable usersState :
+    {
+      employerProfiles :
+        Map__605269027<UserId__158757552, EmployerProfile__134796480>;
+      workerProfiles :
+        Map__605269027<UserId__158757552, WorkerProfile__678030224>
+    };
+  stable workerProfiles :
+    {
+      var root : Node__46230540<UserId__158757552, WorkerProfile__678030224>;
+      var size : Nat__490723111
+    }
+};

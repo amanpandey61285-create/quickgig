@@ -1,0 +1,150 @@
+type WorkerProfileInput = 
+ record {
+   availability: bool;
+   avatarUrl: opt text;
+   bio: text;
+   displayName: text;
+   hourlyRate: nat;
+   skills: vec text;
+ };
+type WorkerProfile = 
+ record {
+   availability: bool;
+   avatarUrl: opt text;
+   bio: text;
+   completedJobs: nat;
+   displayName: text;
+   hourlyRate: nat;
+   "principal": UserId;
+   ratings: vec Rating;
+   skills: vec text;
+   totalEarnings: nat;
+ };
+type UserId = principal;
+type Timestamp = int;
+type Rating = 
+ record {
+   comment: opt text;
+   createdAt: Timestamp;
+   fromPrincipal: UserId;
+   stars: nat;
+ };
+type PaymentStatus = 
+ variant {
+   completed;
+   pending;
+ };
+type PaymentSessionInput = 
+ record {
+   amount: nat;
+   jobId: text;
+ };
+type PaymentSession = 
+ record {
+   amount: nat;
+   createdAt: Timestamp;
+   employerPrincipal: UserId;
+   jobId: text;
+   sessionId: text;
+   status: PaymentStatus;
+ };
+type JobStatus = 
+ variant {
+   closed;
+   completed;
+   open;
+ };
+type JobInput = 
+ record {
+   category: text;
+   description: text;
+   duration: text;
+   location: text;
+   payAmount: nat;
+   skillsRequired: vec text;
+   timing: text;
+   title: text;
+   urgent: bool;
+   workerCount: nat;
+ };
+type JobFilter = 
+ record {
+   category: opt text;
+   status: opt JobStatus;
+   urgent: opt bool;
+ };
+type Job = 
+ record {
+   applicationCount: nat;
+   category: text;
+   createdAt: Timestamp;
+   description: text;
+   duration: text;
+   employerPrincipal: UserId;
+   id: text;
+   location: text;
+   payAmount: nat;
+   skillsRequired: vec text;
+   status: JobStatus;
+   timing: text;
+   title: text;
+   urgent: bool;
+   workerCount: nat;
+ };
+type EmployerProfileInput = 
+ record {
+   businessName: text;
+   description: text;
+   logoUrl: opt text;
+ };
+type EmployerProfile = 
+ record {
+   activeJobCount: nat;
+   businessName: text;
+   completedHires: nat;
+   description: text;
+   logoUrl: opt text;
+   "principal": UserId;
+   ratings: vec Rating;
+ };
+type ApplicationStatus = 
+ variant {
+   accepted;
+   completed;
+   pending;
+   rejected;
+ };
+type Application = 
+ record {
+   appliedAt: Timestamp;
+   id: text;
+   jobId: text;
+   status: ApplicationStatus;
+   workerPrincipal: UserId;
+ };
+service : {
+  applyToJob: (jobId: text) -> (opt Application);
+  createEmployerProfile: (input: EmployerProfileInput) -> (EmployerProfile);
+  createPaymentSession: (input: PaymentSessionInput) -> (PaymentSession);
+  createWorkerProfile: (input: WorkerProfileInput) -> (WorkerProfile);
+  getApplicationsForJob: (jobId: text) -> (vec Application);
+  getEmployerProfile: ("principal": UserId) -> (opt EmployerProfile) query;
+  getJob: (jobId: text) -> (opt Job) query;
+  getJobs: (filter: JobFilter, offset: nat, limit: nat) -> (vec Job) query;
+  getJobsByEmployer: (employerPrincipal: UserId) -> (vec Job) query;
+  getMyApplications: () -> (vec Application);
+  getPaymentSession: (sessionId: text) -> (opt PaymentSession) query;
+  getWorkerProfile: ("principal": UserId) -> (opt WorkerProfile) query;
+  isAdmin: () -> (bool);
+  markJobComplete: (jobId: text, applicationId: text) -> (opt Job);
+  postJob: (input: JobInput) -> (Job);
+  respondToApplication: (applicationId: text, accept: bool) ->
+   (opt Application);
+  submitRating: (targetPrincipal: UserId, isWorker: bool, stars: nat,
+   comment: opt text) -> (bool);
+  updateEmployerProfile: (input: EmployerProfileInput) ->
+   (opt EmployerProfile);
+  updatePaymentStatus: (sessionId: text, status: PaymentStatus) ->
+   (opt PaymentSession);
+  updateWorkerProfile: (input: WorkerProfileInput) -> (opt WorkerProfile);
+}
